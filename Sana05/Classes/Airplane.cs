@@ -2,53 +2,98 @@ namespace Sana05.Classes;
 
 public class Airplane
 {
-    protected string StartCity;
-    protected string FinishCity;
-    protected MyDate StartDate;
-    protected MyDate FinishDate;
+    private string _startCity;
+    public string StartCity
+    {
+        get => _startCity;
+        set
+        {
+            if(string.IsNullOrEmpty(value))
+                throw new Exception("StartCity cannot be null or empty");
+            _startCity = value;
+        }
+    }
+    
+    private string _finishCity;
+    public string FinishCity
+    {
+        get => _finishCity;
+        set
+        {
+            if(string.IsNullOrEmpty(value))
+                throw new Exception("FinishCity cannot be null or empty");
+            _finishCity = value;
+        }
+    }
+    
+    private MyDate _startDate;
+    public MyDate StartDate
+    {
+        get => _startDate;
+        set => _startDate = value;
+    }
+    
+    private MyDate _finishDate;
+    public MyDate FinishDate
+    {
+        get => _finishDate;
+        set => _finishDate = value;
+    }
 
     public Airplane(string startCity, MyDate startDate, string finishCity, MyDate finishDate)
     {
-        SetStartCity(startCity);
+        StartCity = startCity;
         StartDate = startDate;
         
-        SetFinishCity(finishCity);
+        FinishCity = finishCity;
         FinishDate = finishDate;
     }
 
-    public void SetStartCity(string startCity)
+    public Airplane(string startCity, string finishCity)
     {
-        if(string.IsNullOrEmpty(startCity))
-            throw new Exception("StartCity cannot be null or empty");
         StartCity = startCity;
+        FinishCity = finishCity;
     }
-
-    public void SetFinishCity(string finishCity)
+    
+    // copy constructor
+    public Airplane(Airplane airplane)
     {
-        if(string.IsNullOrEmpty(finishCity))
-            throw new Exception("StartCity cannot be null or empty");
-        FinishCity = finishCity; 
+        StartCity = airplane.StartCity;
+        StartDate = airplane.StartDate;
+        
+        FinishCity = airplane.FinishCity;
+        FinishDate = airplane.FinishDate;
     }
-
+    
+    // default constructor
+    public Airplane()
+    {
+        StartCity = "Unknown";
+        StartDate = new MyDate(); // default constructor
+        FinishCity = "Unknown";
+        FinishDate = new MyDate();
+    }
+    
     public int GetTotalTime()
     {
         DateTime start = StartDate.ToDateTime();
         DateTime finish = FinishDate.ToDateTime();
         
         TimeSpan diff = finish - start;
+        
         return (int)diff.TotalMinutes;
     }
 
     public bool IsArrivingToday()
     {
-        if (StartDate.GetDay() == FinishDate.GetDay())
+        if (StartDate.Day == FinishDate.Day)
         {
             Console.WriteLine("Departure and arrival on the same day");
             return true;
         }
         else
         {
-            Console.WriteLine("Departure and arrival on differnt same day");
+            Console.WriteLine("Departure and arrival on different day");
             return false;
         }
     }

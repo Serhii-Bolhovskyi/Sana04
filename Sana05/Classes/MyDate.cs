@@ -2,85 +2,106 @@ namespace Sana05.Classes;
 
 public class MyDate
 {
-    protected int Year;
-    protected string Month;
-    protected int Day;
-    protected int Hours;
-    protected int Minutes;
-
-    public MyDate(int year, string month, int day, int hours, int minutes)
+    private int _year;
+    public int Year
     {
-        SetYear(year);
-        SetMonth(month);
-        SetDay(day);
-        SetHours(hours);
-        SetMinutes(minutes);
+        get => _year;
+        set
+        {
+            if (value >= 1 && value <= DateTime.Now.Year)
+            {
+                _year = value;
+            }
+            else
+            {
+                throw new Exception("Invalid year"); 
+            }
+        } 
+    }
+    
+    private Month _month;
+    public Month Month
+    {
+        get => _month;
+        set => _month = value;
+    }
+    
+    private int _day;
+    public int Day
+    {
+        get => _day;
+        set
+        {
+            if (value <= 1 && value >= 31)
+                throw new Exception("Invalid day. Day must be between 1 and 31.");
+            _day = value;
+        }
+    }
+    
+    private int _hours;
+    public int Hours
+    {
+        get => _hours;
+        set
+        {
+            if(value >= 0 && value <= 23)
+                _hours = value;
+            else
+                throw new Exception("Invalid hours");
+        }
+    }
+    
+    private int _minutes;
+    public int Minutes
+    {
+        get => _minutes;
+        set
+        {
+            if(value >= 0 && value <= 59)
+                _minutes = value;
+            else 
+                throw new Exception("Invalid minutes");
+        }
     }
 
-    public void SetYear(int year)
+    public MyDate(int year, Month month, int day, int hours, int minutes)
     {
-        if (year >= 1 && year <= DateTime.Now.Year)
-        {
-            Year = year;
-        }
-        else
-        {
-            throw new Exception("Invalid year"); 
-        }
-    }
-
-    public void SetMonth(string month)
-    {
-        if (string.IsNullOrEmpty(month))
-            throw new Exception("Invalid month");
+        Year = year;
         Month = month;
+        Day = day;
+        Hours = hours;
+        Minutes = minutes;
+    }
+    
+    public MyDate(MyDate copMyDate)
+    {
+        Year = copMyDate.Year;
+        Month = copMyDate.Month;
+        Day = copMyDate.Day;
+        Hours = copMyDate.Hours;
+        Minutes = copMyDate.Minutes;
+    }
+    
+    public MyDate()
+    {
+        Year = 1;
+        Month = Month.Unknown;
+        Day = 1;
+        Hours = 0;
+        Minutes = 0;
     }
 
-    public void SetDay(int day)
+    public MyDate(Month month, int day)
     {
-        if (day >= 1 && day <= 31) // Static range check
-        {
-            Day = day;
-        }
-        else
-        {
-            throw new Exception("Invalid day. Day must be between 1 and 31.");
-        }
-    }
-
-    public void SetHours(int hours)
-    {
-        if(hours >= 0 && hours <= 23)
-            Hours = hours;
-        else
-            throw new Exception("Invalid hours");
-    }
-
-    public void SetMinutes(int minutes)
-    {
-        if(minutes >= 0 && minutes <= 59)
-            Minutes = minutes;
-        else 
-            throw new Exception("Invalid minutes");
+        Month = month;
+        Day = day;
     }
     
     public DateTime ToDateTime()
     {
-        int monthNumber = Array.IndexOf(new string[] { "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December" },
-            Month) + 1;
-
-        if (monthNumber == 0)
-        {
-            throw new Exception("Invalid month name.");
-        }
-
-        return new DateTime(Year, monthNumber, Day, Hours, Minutes, 0);
+        return new DateTime(Year, (int)Month, Day, Hours, Minutes, 0);
     }
 
-    public int GetDay()
-    {
-        return Day;
-    }
+   
     
 }
