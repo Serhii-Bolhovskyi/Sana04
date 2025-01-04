@@ -47,6 +47,9 @@ public class Airplane
         
         FinishCity = finishCity;
         FinishDate = finishDate;
+        
+        if(StartDate.ToDateTime() > FinishDate.ToDateTime())
+            throw new Exception("StartDate cannot be later than FinishDate");
     }
 
     public Airplane(string startCity, string finishCity)
