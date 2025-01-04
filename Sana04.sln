@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sana05", "Sana05\Sana05.csproj", "{62BE67F5-B097-4779-AB12-802BC5847F59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sana04", "Sana04\Sana04.csproj", "{62BE67F5-B097-4779-AB12-802BC5847F59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
